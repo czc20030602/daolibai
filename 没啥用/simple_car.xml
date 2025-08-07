@@ -1,0 +1,32 @@
+<!-- simple_car.xml -->
+<mujoco model="simple_car">
+    <compiler angle="degree" inertiafromgeom="true"/>
+    <option integrator="RK4" timestep="0.01"/>
+    <worldbody>
+        <!-- 车身 -->
+        <body name="chassis" pos="0 0 0.2">
+            <geom type="box" size="0.2 0.1 0.05" rgba="0.8 0.4 0.4 1"/>
+            
+            <!-- 前轮 -->
+            <body name="wheel_front" pos="0.15 0 0">
+                <joint name="joint_front" type="hinge" axis="0 1 0"/>
+                <geom type="cylinder" size="0.05 0.02" fromto="0 0 0 0 0 0.1"/>
+            </body>
+            
+            <!-- 后轮 -->
+            <body name="wheel_back" pos="-0.15 0 0">
+                <joint name="joint_back" type="hinge" axis="0 1 0"/>
+                <geom type="cylinder" size="0.05 0.02" fromto="0 0 0 0 0 0.1"/>
+            </body>
+        </body>
+        
+        <!-- 地面 -->
+        <geom name="floor" type="plane" pos="0 0 0" size="5 5 0.1" rgba="0.9 0.9 0.9 1"/>
+    </worldbody>
+    
+    <actuator>
+        <!-- 两个车轮的电机 -->
+        <motor name="motor_front" joint="joint_front" ctrlrange="-1 1" gear="100"/>
+        <motor name="motor_back"  joint="joint_back"  ctrlrange="-1 1" gear="100"/>
+    </actuator>
+</mujoco>
